@@ -17,9 +17,14 @@ def format_bsn(value: int) -> str:
     return f"{value:0{BSN_LENGTH}d}"
 
 
+def is_canonical_bsn(bsn: str) -> bool:
+    """Return whether *bsn* is a canonical, nine-character ASCII digit string."""
+    return len(bsn) == BSN_LENGTH and bsn.isascii() and bsn.isdecimal()
+
+
 def is_valid_bsn(bsn: str) -> bool:
     """Return whether a 9-digit string passes the BSN 11-proof checksum."""
-    if not (bsn.isdigit() and len(bsn) == BSN_LENGTH):
+    if not is_canonical_bsn(bsn):
         return False
 
     total = sum(int(digit) * weight for digit, weight in zip(bsn, BSN_WEIGHTS))
@@ -28,8 +33,8 @@ def is_valid_bsn(bsn: str) -> bool:
 
 def hash_bsn(bsn: str) -> dict[str, str]:
     """Return MD5, SHA-1, and SHA-256 hex digests for a 9-digit BSN string."""
-    if not (bsn.isdigit() and len(bsn) == BSN_LENGTH):
-        raise ValueError("BSN must be exactly 9 digits")
+    if not is_canonical_bsn(bsn):
+        raise ValueError("BSN must be exactly 9 ASCII digits")
 
     bsn_bytes = bsn.encode("utf-8")
     return {

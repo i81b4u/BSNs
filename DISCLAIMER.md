@@ -2,11 +2,11 @@
 
 ## English
 
-This repository is provided for defensive security awareness and education only.
+This repository is provided for defensive security awareness and education.
 
-The purpose of the code is to demonstrate why hashing Dutch BSNs (Burger
-Service Nummers) with unsalted MD5, SHA-1, or SHA-256 should not be treated as
-anonymization. A BSN has a small and enumerable input space, so deterministic
+The purpose of the code is to demonstrate why hashing Dutch BSNs
+(Burgerservicenummers) with unsalted MD5, SHA-1, or SHA-256 should not be
+treated as anonymization. A BSN has a small and enumerable input space, so deterministic
 unsalted hashes can be reversed in practice by generating candidate values and
 comparing hashes.
 
@@ -25,13 +25,13 @@ where possible. When deterministic matching is genuinely required, use an
 appropriate design such as a keyed HMAC with a strong secret, strict access
 controls, separation of duties, and a documented retention policy.
 
-By using this repository, you are responsible for ensuring that your use is
-lawful, ethical, and limited to defensive awareness, testing, or education.
+This is responsible-use guidance, not a licence restriction or legal advice.
+The licence governing the software is in [LICENSE](LICENSE). You are
+responsible for ensuring that your use is lawful and ethical.
 
 ## Nederlands
 
-Deze repository is uitsluitend bedoeld voor defensieve security-awareness en
-educatie.
+Deze repository is bedoeld voor defensieve security-awareness en educatie.
 
 Het doel van de code is om te laten zien waarom het hashen van Nederlandse
 BSN's (Burgerservicenummers) met unsalted MD5, SHA-1 of SHA-256 niet als
@@ -55,6 +55,7 @@ matching echt noodzakelijk is, gebruik dan een passend ontwerp zoals een keyed
 HMAC met een sterk geheim, strikte toegangscontrole, functiescheiding en een
 gedocumenteerd bewaarbeleid.
 
-Door deze repository te gebruiken ben je zelf verantwoordelijk om ervoor te
-zorgen dat je gebruik rechtmatig, ethisch en beperkt is tot defensieve
-awareness, testen of educatie.
+Dit is richtlijn voor verantwoord gebruik, geen licentiebeperking of juridisch
+advies. De licentie voor de software staat in [LICENSE](LICENSE). Door deze
+repository te gebruiken ben je zelf verantwoordelijk om ervoor te zorgen dat
+je gebruik rechtmatig en ethisch is.
