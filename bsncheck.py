@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 
-from bsn import BSN_LENGTH, is_valid_bsn
+from bsn import is_canonical_bsn, is_valid_bsn
 
 
 def parse_args() -> argparse.Namespace:
@@ -15,8 +15,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
 
-    if not (args.bsn.isdigit() and len(args.bsn) == BSN_LENGTH):
-        print(f"{args.bsn} is not a valid BSN: must be exactly 9 digits.")
+    if not is_canonical_bsn(args.bsn):
+        print(f"{args.bsn} is not a valid BSN: must be exactly 9 ASCII digits.")
         return 1
 
     if is_valid_bsn(args.bsn):
