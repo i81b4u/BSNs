@@ -22,8 +22,11 @@ def is_canonical_bsn(bsn: str) -> bool:
     return len(bsn) == BSN_LENGTH and bsn.isascii() and bsn.isdecimal()
 
 
-def is_valid_bsn(bsn: str) -> bool:
-    """Return whether a 9-digit string passes the BSN 11-proof checksum."""
+def passes_bsn_checksum(bsn: str) -> bool:
+    """Check canonical formatting and the 11-proof, not issuance or identity.
+
+    The all-zero string passes this mathematical check too.
+    """
     if not is_canonical_bsn(bsn):
         return False
 
@@ -31,13 +34,29 @@ def is_valid_bsn(bsn: str) -> bool:
     return total % 11 == 0
 
 
+def is_valid_bsn(bsn: str) -> bool:
+    """Compatibility wrapper for passes_bsn_checksum; checks no issuance rules."""
+    return passes_bsn_checksum(bsn)
+
+
 def hash_bsn(bsn: str) -> dict[str, str]:
-    """Return MD5, SHA-1, and SHA-256 hex digests for a 9-digit BSN string."""
+    """Hash a canonical candidate for demonstration, without checking its checksum.
+
+    Raise RuntimeError if a required algorithm is unavailable.
+    """
     if not is_canonical_bsn(bsn):
         raise ValueError("BSN must be exactly 9 ASCII digits")
 
     bsn_bytes = bsn.encode("utf-8")
-    return {
-        algorithm: hashlib.new(algorithm, bsn_bytes).hexdigest()
-        for algorithm in HASH_ALGORITHMS
-    }
+    digests = {}
+    for algorithm in HASH_ALGORITHMS:
+        try:
+            # These hashes demonstrate enumeration; they provide no protection.
+            digests[algorithm] = hashlib.new(
+                algorithm, bsn_bytes, usedforsecurity=False
+            ).hexdigest()
+        except ValueError as exc:
+            raise RuntimeError(
+                f"Required hash algorithm '{algorithm}' is unavailable in this Python build"
+            ) from exc
+    return digests

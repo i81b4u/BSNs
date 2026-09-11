@@ -2,6 +2,5 @@
 name = "bsn-hash-awareness-poc"
 version = "0.1.0"
 description = "Defensive awareness demonstration for deterministic BSN hashes"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
-

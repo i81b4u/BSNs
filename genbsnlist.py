@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 import argparse
 
-from bsn import BSN_MAX_EXCLUSIVE, format_bsn, hash_bsn, is_valid_bsn
+from bsn import BSN_MAX_EXCLUSIVE, format_bsn, hash_bsn, passes_bsn_checksum
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Generate mathematically valid BSN candidates and unsalted hash "
+            "Generate BSN candidates that pass the checksum and unsalted hash "
             "values for awareness demonstrations."
         )
     )
@@ -27,6 +27,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def validate_range(begin: int, end: int) -> None:
+    """Validate a half-open range; empty ranges are allowed."""
     if begin < 0 or end < 0:
         raise ValueError("range bounds must be non-negative")
 
@@ -51,10 +52,13 @@ def main() -> int:
 
     for value in range(args.begin, args.end):
         bsn = format_bsn(value)
-        if not is_valid_bsn(bsn):
+        if not passes_bsn_checksum(bsn):
             continue
 
-        digests = hash_bsn(bsn)
+        try:
+            digests = hash_bsn(bsn)
+        except RuntimeError as exc:
+            raise SystemExit(f"error: {exc}") from exc
         print(separator.join((bsn, digests["md5"], digests["sha1"], digests["sha256"])))
 
     return 0
