@@ -15,9 +15,9 @@ lookup tables, hash reversal tables, or datasets containing generated BSNs and
 their hashes. Do not use this project to identify, re-identify, track, or target
 individuals.
 
-The scripts only check mathematical validity using the BSN checksum. They do
-not determine whether a BSN was actually issued, is currently in use, or belongs
-to any person.
+The scripts only check canonical formatting and the BSN checksum. Even the
+all-zero candidate passes that checksum. They do not determine whether a BSN
+was actually issued, is currently in use, or belongs to any person.
 
 If you handle BSNs or BSN-derived identifiers, follow applicable privacy,
 security, and legal requirements. Prefer avoiding BSN-derived stable identifiers
@@ -44,9 +44,10 @@ datasets met gegenereerde BSN's en bijbehorende hashes te maken, publiceren,
 delen, verkopen of verspreiden. Gebruik dit project niet om personen te
 identificeren, opnieuw te identificeren, te volgen of te targeten.
 
-De scripts controleren alleen de wiskundige geldigheid met behulp van de
-BSN-elfproef. Ze bepalen niet of een BSN daadwerkelijk is uitgegeven, op dit
-moment in gebruik is, of aan een persoon toebehoort.
+De scripts controleren alleen het canonieke formaat en de BSN-elfproef. Ook
+een kandidaat met uitsluitend nullen doorstaat die elfproef. Ze bepalen niet
+of een BSN daadwerkelijk is uitgegeven, op dit moment in gebruik is, of aan
+een persoon toebehoort.
 
 Als je BSN's of van BSN's afgeleide identifiers verwerkt, volg dan de
 toepasselijke privacy-, security- en wettelijke vereisten. Vermijd waar mogelijk
